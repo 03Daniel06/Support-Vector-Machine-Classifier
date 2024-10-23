@@ -26,13 +26,32 @@ def read_labels(file_path):
     """Reads labels from a file and stores them in a vector."""
     return np.loadtxt(file_path).astype(np.int64)
 
+def get_user_choice():
+    while True:
+        choice = input("Please enter the dataset number you want to use (1-4): ")
+        if choice in ['1', '2', '3', '4']:
+            return choice
+        else:
+            print("Invalid input. Please enter a number between 1 and 4.")
+
+
 # Training and testing the classifier
 def main():
-    # Load your data (replace this with your actual data loading)
-    X_train = read_data('Data-4-train.txt')  # Feature matrix for training
-    y_train = read_labels('Label-4-train.txt')  # Labels for training
-    X_test = read_data('Data-4-test.txt')  # Feature matrix for testing
-    y_test = read_labels('Label-4-test.txt')  # Labels for testing
+    # Get the user's choice
+    dataset_number = get_user_choice()
+
+    # Construct file names based on the user's choice
+    data_train_file = f'Data-{dataset_number}-train.txt'
+    label_train_file = f'Label-{dataset_number}-train.txt'
+    data_test_file = f'Data-{dataset_number}-test.txt'
+    label_test_file = f'Label-{dataset_number}-test.txt'
+
+    # Read the data and labels
+    X_train = read_data(data_train_file)  # Feature matrix for training
+    y_train = read_labels(label_train_file)  # Labels for training
+    X_test = read_data(data_test_file)  # Feature matrix for testing
+    y_test = read_labels(label_test_file)  # Labels for testing
+
 
     # Initialize the StandardScaler
     scaler = StandardScaler()
