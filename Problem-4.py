@@ -29,10 +29,10 @@ def read_labels(file_path):
 # Training and testing the classifier
 def main():
     # Load your data (replace this with your actual data loading)
-    X_train = read_data('Data-1-train.txt')  # Feature matrix for training
-    y_train = read_labels('Label-1-train.txt')  # Labels for training
-    X_test = read_data('Data-1-test.txt')  # Feature matrix for testing
-    y_test = read_labels('Label-1-test.txt')  # Labels for testing
+    X_train = read_data('Data-4-train.txt')  # Feature matrix for training
+    y_train = read_labels('Label-4-train.txt')  # Labels for training
+    X_test = read_data('Data-4-test.txt')  # Feature matrix for testing
+    y_test = read_labels('Label-4-test.txt')  # Labels for testing
 
     # Initialize the StandardScaler
     scaler = StandardScaler()
