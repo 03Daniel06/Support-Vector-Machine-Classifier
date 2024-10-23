@@ -28,11 +28,11 @@ def read_labels(file_path):
 
 # Training and testing the classifier
 def main():
-# Load your data (replace this with your actual data loading)
-    X_train = read_data('Data-4-train.txt')  # Feature matrix for training
-    y_train = read_labels('Label-4-train.txt')  # Labels for training
-    X_test = read_data('Data-4-test.txt')  # Feature matrix for testing
-    y_test = read_labels('Label-4-test.txt')  # Labels for testing
+    # Load your data (replace this with your actual data loading)
+    X_train = read_data('Data-1-train.txt')  # Feature matrix for training
+    y_train = read_labels('Label-1-train.txt')  # Labels for training
+    X_test = read_data('Data-1-test.txt')  # Feature matrix for testing
+    y_test = read_labels('Label-1-test.txt')  # Labels for testing
 
     # Initialize the StandardScaler
     scaler = StandardScaler()
@@ -45,28 +45,11 @@ def main():
     contamination = 0.1  # Tunable parameter
     X_test, y_test = remove_outliers(X_test, y_test, contamination=contamination)
 
-    # Define the parameter grid for C and gamma
-    param_grid = {
-        'C': np.arange(4.00, 5.00, 0.001).tolist(),
-
-        'gamma': np.arange(0.01, 0.0001, -0.00001).tolist()
-    }
-
-    # Initialize the SVM classifier with RBF kernel
-    svm_classifier = svm.SVC(kernel='rbf')
-
-    # Initialize GridSearchCV with 5-fold cross-validation
-    grid_search = GridSearchCV(svm_classifier, param_grid, cv=5, verbose=2, n_jobs=-1)
-
-    # Train the SVM classifier with cross-validation
-    grid_search.fit(X_train, y_train)
-
-    # Get the best parameters
-    best_params = grid_search.best_params_
-    print(f"Best parameters found: {best_params}")
+    # Initialize the SVM classifier with RBF kernel and best parameters
+    best_svm_classifier = svm.SVC(kernel='rbf', C=4.0, gamma=0.0011500000000003608)
 
     # Train the SVM classifier with the best parameters
-    best_svm_classifier = grid_search.best_estimator_
+    best_svm_classifier.fit(X_train, y_train)
 
     # Make predictions on the test data
     y_pred = best_svm_classifier.predict(X_test)
@@ -79,6 +62,5 @@ def main():
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Accuracy: {accuracy * 100:.2f}%")
 
-# Call the main function
 if __name__ == "__main__":
     main()
